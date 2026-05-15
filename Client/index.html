@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nakatomi FamQ</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <header>
+
+        <div class="logo-block">
+
+            <img src="assets/logo.png" alt="Nakatomi Logo">
+
+            <div>
+
+                <h1>Nakatomi FamQ</h1>
+
+                <p>GTA 5 RP ORGANIZATION</p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h2>
+                NAKATOMI<br>
+                FAMQ
+            </h2>
+
+            <p>
+                Элита криминального мира GTA 5 RP.
+                Дисциплина, влияние и уважение.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="form-section" id="form">
+
+        <div class="form-container">
+
+            <h3>Форма вступления</h3>
+
+            <form id="applicationForm">
+
+                <div class="input-group">
+
+                    <label>Имя</label>
+
+                    <input
+                        type="text"
+                        id="firstname"
+                        placeholder="Введите имя"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Фамилия</label>
+
+                    <input
+                        type="text"
+                        id="lastname"
+                        placeholder="Введите фамилию"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Номер паспорта</label>
+
+                    <input
+                        type="text"
+                        id="passport"
+                        placeholder="123456"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Discord</label>
+
+                    <input
+                        type="text"
+                        id="discord"
+                        placeholder="username#0001"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Возраст</label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        placeholder="18+"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Почему хотите вступить?</label>
+
+                    <textarea
+                        id="about"
+                        rows="5"
+                        placeholder="Расскажите о себе"
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    Отправить заявку
+                </button>
+
+            </form>
+
+            <div id="message"></div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        © 2025 Nakatomi FamQ
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

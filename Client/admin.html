@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .admin-wrapper{
+            width:100%;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px 20px;
+        }
+
+        .admin-box{
+            width:100%;
+            max-width:1200px;
+            background:rgba(255,255,255,0.03);
+            border:1px solid rgba(255,255,255,0.08);
+            border-radius:25px;
+            padding:40px;
+        }
+
+        .login-box{
+            width:100%;
+            max-width:450px;
+            margin:auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:30px;
+        }
+
+        th{
+            background:#111;
+            padding:18px;
+            text-align:left;
+        }
+
+        td{
+            padding:18px;
+            border-bottom:1px solid rgba(255,255,255,0.08);
+            color:#ccc;
+        }
+
+        .delete-btn{
+            border:none;
+            background:red;
+            color:white;
+            padding:10px 15px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:700;
+        }
+
+        .admin-title{
+            text-align:center;
+            font-size:42px;
+            margin-bottom:30px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="admin-wrapper">
+
+    <div class="admin-box">
+
+        <div id="loginSection" class="login-box">
+
+            <h2 class="admin-title">
+                Admin Login
+            </h2>
+
+            <div class="input-group">
+
+                <label>Пароль</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Введите пароль"
+                >
+
+            </div>
+
+            <button class="submit-btn" onclick="login()">
+                Войти
+            </button>
+
+        </div>
+
+        <div id="adminPanel" style="display:none;">
+
+            <h2 class="admin-title">
+                Заявки Nakatomi FamQ
+            </h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Паспорт</th>
+                        <th>Discord</th>
+                        <th>Возраст</th>
+                        <th>О себе</th>
+                        <th>Удалить</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="applicationsTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+async function login(){
+
+    const password =
+    document.getElementById('password').value;
+
+    const response = await fetch('/api/login',{
+
+        method:'POST',
+
+        headers:{
+            'Content-Type':'application/json'
+        },
+
+        body:JSON.stringify({password})
+
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+
+        document.getElementById('loginSection')
+        .style.display='none';
+
+        document.getElementById('adminPanel')
+        .style.display='block';
+
+        loadApplications();
+
+    }else{
+
+        alert('Неверный пароль');
+
+    }
+
+}
+
+async function loadApplications(){
+
+    const response =
+    await fetch('/api/applications');
+
+    const data =
+    await response.json();
+
+    const table =
+    document.getElementById('applicationsTable');
+
+    table.innerHTML='';
+
+    data.forEach(app => {
+
+        table.innerHTML += `
+        
+        <tr>
+
+            <td>${app.id}</td>
+            <td>${app.firstname}</td>
+            <td>${app.lastname}</td>
+            <td>${app.passport}</td>
+            <td>${app.discord}</td>
+            <td>${app.age}</td>
+            <td>${app.about}</td>
+
+            <td>
+
+                <button
+                class="delete-btn"
+                onclick="deleteApplication(${app.id})">
+
+                    Удалить
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+async function deleteApplication(id){
+
+    const response =
+    await fetch('/api/application/' + id,{
+
+        method:'DELETE'
+
+    });
+
+    const result =
+    await response.json();
+
+    if(result.success){
+
+        loadApplications();
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
